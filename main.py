@@ -91,7 +91,10 @@ def plot_graph():
         ax.add_patch(ellipse)
     
     # Dibujar el punto P
-    ax.plot(x_distance, 0, 'bo')  # Punto azul en la distancia x_distance y y=0
+    ax.plot(x_distance, 0, 'bo')
+    
+    # Etiquetar el punto P y mostrar su carga
+    ax.text(x_distance, 0.2, "P (1$\mu$C)", color="blue", horizontalalignment="center")
     
     # Dibujar la flecha indicando el campo eléctrico
     direction = 1 if x_distance > 0 else -1  # Si el punto P está a la derecha de la distribución, la dirección es hacia la derecha. De lo contrario, es hacia la izquierda.
@@ -100,8 +103,8 @@ def plot_graph():
     # Configurar el gráfico
     ax.set_xlim(-2, 11)
     ax.set_ylim(-6, 6)
-    ax.set_xlabel("X (m)")
-    ax.set_ylabel("Campo Eléctrico (N/C)")
+    ax.set_xlabel("Distancia desde el origen hasta el punto P (m)")
+    ax.set_ylabel("Referencia")
     ax.set_title(f"Campo Eléctrico: {E:.3f} N/C")
     
     canvas = FigureCanvasTkAgg(fig, root)
