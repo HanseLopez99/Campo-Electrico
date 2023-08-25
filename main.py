@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import Functions as f
 
@@ -68,6 +69,9 @@ def plot_graph():
     radio = radio_slider.get()
     x_distance = x_distance_slider.get()
     
+    fig, ax = plt.subplots(figsize=(6, 6))
+    
+    # Obtener el valor de E basado en la distribución elegida:
     if distribution == "Anillo":
         E = float(f.electric_field_ring(radio, x_distance))
     elif distribution == "Linea finíta":
@@ -75,28 +79,27 @@ def plot_graph():
     else:  # "Disco"
         E = float(f.electric_field_disk(radio, x_distance))
     
-    fig, ax = plt.subplots(figsize=(6, 6))
-    
     # Dibujar la distribución de carga
+    perspective_factor = 0.2  # Puedes ajustar este valor para cambiar la perspectiva
     if distribution == "Anillo":
-        circle = plt.Circle((0, 0), radio, color='r', fill=False)
-        ax.add_artist(circle)
+        ellipse = patches.Ellipse((0, 0), radio * perspective_factor, radio, fill=False, color='r') # Modificamos el ancho para simular perspectiva
+        ax.add_patch(ellipse)
     elif distribution == "Linea finíta":
         ax.plot([0, 0], [-radio / 2, radio / 2], 'r-')
     else:  # "Disco":
-        circle = plt.Circle((0, 0), radio, color='r', fill=True)
-        ax.add_artist(circle)
+        ellipse = patches.Ellipse((0, 0), radio * perspective_factor, radio, fill=True, color='r')  # Modificamos el ancho para simular perspectiva
+        ax.add_patch(ellipse)
     
     # Dibujar el punto P
     ax.plot(x_distance, 0, 'bo')  # Punto azul en la distancia x_distance y y=0
     
     # Dibujar la flecha indicando el campo eléctrico
     direction = 1 if x_distance > 0 else -1  # Si el punto P está a la derecha de la distribución, la dirección es hacia la derecha. De lo contrario, es hacia la izquierda.
-    ax.arrow(x_distance, 0, direction * 0.5, 0, head_width=0.1, head_length=0.1, fc='k', ec='k')
+    ax.arrow(x_distance, 0, direction * 0.5, 0, head_width=0.2, head_length=0.1, fc='k', ec='k')
     
     # Configurar el gráfico
-    ax.set_xlim(-3, 3)
-    ax.set_ylim(-3, 3)
+    ax.set_xlim(-2, 11)
+    ax.set_ylim(-6, 6)
     ax.set_xlabel("X (m)")
     ax.set_ylabel("Campo Eléctrico (N/C)")
     ax.set_title(f"Campo Eléctrico: {E:.3f} N/C")
