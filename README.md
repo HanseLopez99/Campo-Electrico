@@ -24,7 +24,7 @@ Desde la línea de comandos o terminal, simplemente ejecuta:
    ```
 
 
-Por supuesto, reemplaza `[nombre-del-archivo-principal]` con el nombre del archivo Python principal que contiene la interfaz gráfica y las funciones de cálculo.
+Por supuesto, reemplaza `[nombre-del-archivo-principal]` con el nombre del archivo Python principal que contiene la interfaz gráfica y las funciones de cálculo, en este caso `main.py`.
 
 ## Uso
 
