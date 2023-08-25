@@ -29,14 +29,20 @@ distribution_dropdown.current(0)
 def update_label(label, slider):
     label.config(text=f"{slider.get():.2f}")
 
+# Etiqueta para mostrar el valor del radio
+radio_value_label = ttk.Label(control_frame, text="")
+radio_value_label.grid(row=1, column=2, padx=5)
+
+# Etiqueta para mostrar la distancia en X
+x_distance_value_label = ttk.Label(control_frame, text="")
+x_distance_value_label.grid(row=2, column=2, padx=5)
+
 # Slider para configurar el radio
 radio_label = ttk.Label(control_frame, text="Radio (m):")
 radio_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
 radio_slider = ttk.Scale(control_frame, from_=0.1, to=10.0, orient=tk.HORIZONTAL, command=lambda e: update_label(radio_value_label, radio_slider))
 radio_slider.grid(row=1, column=1, padx=5, pady=5)
 radio_slider.set(1)
-radio_value_label = ttk.Label(control_frame, text=f"{radio_slider.get():.2f}")
-radio_value_label.grid(row=1, column=2, padx=5)
 
 # Slider para configurar la distancia en X
 x_distance_label = ttk.Label(control_frame, text="Distancia en X (m):")
@@ -44,8 +50,11 @@ x_distance_label.grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
 x_distance_slider = ttk.Scale(control_frame, from_=0.1, to=10.0, orient=tk.HORIZONTAL, command=lambda e: update_label(x_distance_value_label, x_distance_slider))
 x_distance_slider.grid(row=2, column=1, padx=5, pady=5)
 x_distance_slider.set(2)
-x_distance_value_label = ttk.Label(control_frame, text=f"{x_distance_slider.get():.2f}")
-x_distance_value_label.grid(row=2, column=2, padx=5)
+
+# Ahora que ambos deslizadores están definidos, podemos actualizar las etiquetas.
+update_label(radio_value_label, radio_slider)
+update_label(x_distance_value_label, x_distance_slider)
+
 
 # Función para generar el gráfico
 def plot_graph():
